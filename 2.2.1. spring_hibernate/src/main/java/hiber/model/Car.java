@@ -30,4 +30,11 @@ public class Car {
     public String getModel() {
         return model;
     }
+
+    @Override
+    public String toString() {
+        return "Car: " +
+                "series=" + series +
+                ", model='" + model + '\'';
+    }
 }

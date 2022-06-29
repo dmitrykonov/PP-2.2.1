@@ -3,6 +3,7 @@ package hiber;
 import hiber.config.AppConfig;
 import hiber.model.Car;
 import hiber.model.User;
+import hiber.service.CarService;
 import hiber.service.UserService;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -15,10 +16,16 @@ public class MainApp {
             new AnnotationConfigApplicationContext(AppConfig.class);
 
       UserService userService = context.getBean(UserService.class);
+      CarService carService = context.getBean(CarService.class);
 
-      Car car1 = new Car(1, "first");
-      Car car2 = new Car(2, "second");
-      Car car3 = new Car(3, "third");
+      Car car1 = new Car(1, "LADA");
+      Car car2 = new Car(2, "SEDAN");
+      Car car3 = new Car(3, "BACLAJAN");
+
+//      На случай если нужно сделать без каскада
+//      carService.add(car1);
+//      carService.add(car2);
+//      carService.add(car3);
 
       User user1 = new User("User1", "Lastname1", "user1@mail.ru");
       User user2 = new User("User2", "Lastname2", "user2@mail.ru");
@@ -31,11 +38,6 @@ public class MainApp {
       userService.add(user2);
       userService.add(user3);
 
-//      userService.add(new User("User1", "Lastname1", "user1@mail.ru"));
-//      userService.add(new User("User2", "Lastname2", "user2@mail.ru"));
-//      userService.add(new User("User3", "Lastname3", "user3@mail.ru"));
-//      userService.add(new User("User4", "Lastname4", "user4@mail.ru"));
-
 
       List<User> users = userService.listUsers();
       for (User user : users) {
@@ -43,6 +45,7 @@ public class MainApp {
          System.out.println("First Name = "+user.getFirstName());
          System.out.println("Last Name = "+user.getLastName());
          System.out.println("Email = "+user.getEmail());
+         System.out.println(user.getUsersCar());
          System.out.println();
       }
 
